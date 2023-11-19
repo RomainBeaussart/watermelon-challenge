@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react"
-import { main } from "./game"
+import { main } from "../lib/game"
 
 export default function Home() {
 
