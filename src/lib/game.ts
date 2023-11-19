@@ -1,5 +1,3 @@
-"use client";
-
 import { Engine, Render, Runner, Bodies, Composite, Body, Detector, Events } from 'matter-js';
 
 let engine: Engine;
