@@ -5,7 +5,6 @@ let render: Render;
 let runner: Runner;
 let fruits: Body[] = [];
 let fallingLine: Body;
-let colisionDetector: Detector;
 
 let currentFruit: Body
 
