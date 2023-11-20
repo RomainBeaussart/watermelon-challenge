@@ -1,14 +1,18 @@
 "use client";
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { main } from "../lib/game"
 
 export default function Home() {
 
-  useEffect(main, [])
+  const [score, setScore] = useState(0)
+
+  useEffect(() => main(setScore), [])
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div id="board-game"></div>      
+      <div>Score : { score }</div>
+      <div id="board-game"></div>
     </main>
   )
 }

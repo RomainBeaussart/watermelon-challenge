@@ -1,4 +1,5 @@
 import { Engine, Render, Runner, Bodies, Composite, Body, Detector, Events } from 'matter-js';
+import { SetStateAction } from 'react';
 
 let engine: Engine;
 let render: Render;
@@ -16,8 +17,10 @@ const wallsGroup = 12;
 
 const fruitsInitSize = 10;
 
+let setScore: (score: SetStateAction<number>) => void;
 
-export function main() {
+
+export function main(setScoreFunction: (score: SetStateAction<number>) => void) {
     engine = Engine.create();
 
     // create a renderer
@@ -37,8 +40,10 @@ export function main() {
     currentFruit = getFruit();
 
     setupCollisionDetection()
+
+    setScore = setScoreFunction;
     // run the renderer
-   Render.run(render);
+    Render.run(render);
     // create runner
     runner = Runner.create();
     // run the engine
@@ -166,6 +171,16 @@ function setupCollisionDetection() {
             const y = (event.pairs[0].bodyA.position.y + event.pairs[0].bodyB.position.y) / 2;
             Body.set(newFruit, "position", { x, y });
             Composite.add(engine.world, newFruit);
+
+            setScore((score) => score + (newFruitLevel - 1) * 10);
         }
     })
+}
+
+export function resetBoard() {
+    Composite.clear(engine.world, true, true);
+    for (const fruit of fruits) {
+        Composite.remove(engine.world, fruit);
+    }
+    currentFruit = getFruit();
 }
